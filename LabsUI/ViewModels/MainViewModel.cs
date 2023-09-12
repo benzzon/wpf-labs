@@ -4,6 +4,7 @@ using LabsUI.Models;
 //using Microsoft.Toolkit.Mvvm.ComponentModel;
 //using Microsoft.Toolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
 //using YourApp.Models;
@@ -15,6 +16,9 @@ namespace LabsUI.ViewModels
         public ObservableCollection<PersonModel> People { get; set; } = new ObservableCollection<PersonModel>();
 
         private PersonModel selectedPerson;
+        const double defaultWinHeight = 300;
+        const double defaultWinWidth = 600;
+
         public PersonModel SelectedPerson
         {
             get => selectedPerson;
@@ -26,6 +30,11 @@ namespace LabsUI.ViewModels
 
         public MainViewModel()
         {
+            Application.Current.MainWindow.Left = LabsUI.Properties.Settings.Default.WinLeft;
+            Application.Current.MainWindow.Top = LabsUI.Properties.Settings.Default.WinTop;
+            Application.Current.MainWindow.Height = LabsUI.Properties.Settings.Default.WinHeight == 0 ? defaultWinHeight : LabsUI.Properties.Settings.Default.WinHeight;
+            Application.Current.MainWindow.Width = LabsUI.Properties.Settings.Default.WinWidth == 0 ? defaultWinWidth : LabsUI.Properties.Settings.Default.WinWidth;
+
             // Initialize the ObservableCollection
             People = new ObservableCollection<PersonModel>();
 
@@ -41,8 +50,8 @@ namespace LabsUI.ViewModels
             // Create a new PersonModel and add it to the ObservableCollection
             var newPerson = new PersonModel
             {
-                FirstName = SelectedPerson.FirstName,
-                LastName = SelectedPerson.LastName,
+                PersonName = SelectedPerson.PersonName,
+                Email = SelectedPerson.Email,
                 Gender = SelectedPerson.Gender,
                 PhoneNumber = SelectedPerson.PhoneNumber
             };
@@ -56,7 +65,7 @@ namespace LabsUI.ViewModels
         private void SaveData()
         {
             // Check if SelectedPerson is not null and has valid data.
-            if (SelectedPerson != null && !string.IsNullOrEmpty(SelectedPerson.FirstName))
+            if (SelectedPerson != null && !string.IsNullOrEmpty(SelectedPerson.PersonName))
             {
                 People.Add(SelectedPerson);
                 SelectedPerson = new PersonModel(); // Clear the input fields
