@@ -6,9 +6,5 @@
              Exit="Application_Exit">
     <Application.Resources>
 
-        <ResourceDictionary>
-            <LabsUI:ViewModelLocator x:Key="Locator" />
-        </ResourceDictionary>
-
     </Application.Resources>
 </Application>
