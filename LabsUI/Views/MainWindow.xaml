@@ -1,0 +1,71 @@
+﻿<Window x:Class="LabsUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LabsUI"
+        mc:Ignorable="d"
+        Title="Labs with WPF" Height="350"
+        Topmost="True"
+        Closing="Window_Closing"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Viewbox VerticalAlignment="Top">
+    <Grid ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="6"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <Label Grid.Row="1" Grid.Column="1" Content="Name"></Label>
+        <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Text="{Binding SelectedPerson.PersonName, Mode=TwoWay}"/>
+
+        <Label Grid.Row="2" Grid.Column="1" Content="E-mail"></Label>
+        <TextBox Grid.Row="2" Grid.Column="2"  Grid.ColumnSpan="1" HorizontalAlignment="Stretch" Text="{Binding SelectedPerson.Email, Mode=TwoWay}"/>
+
+        <Label Grid.Row="3" Grid.Column="1" Content="Phone"></Label>
+        <TextBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Width="200" Text="{Binding SelectedPerson.PhoneNumber, Mode=TwoWay}"/>
+
+        <Label Grid.Row="4" Grid.Column="1" Content="Gender"></Label>
+        <ComboBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Width="100"
+                  SelectedItem="{Binding SelectedPerson.Gender, Mode=TwoWay}" ItemsSource="{Binding Genders}" SelectedValuePath="Gender">
+        </ComboBox>
+
+        <StackPanel Margin="8" Grid.Column="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Add Person" Width="120" Height="40" Margin="0,0,10,0" Command="{Binding AddPersonCommand}" Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}" />
+                <Button Content="Load" Width="100" Height="40"  Margin="0,0,10,0" Command="{Binding LoadCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" />
+                <Button Content="Save" Width="100" Height="40" Command="{Binding SaveCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+        </StackPanel>
+
+        <!-- ListView for displaying data -->
+        <ListView Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="listView" ItemsSource="{Binding People}" HorizontalAlignment="Left">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Person Name" DisplayMemberBinding="{Binding PersonName}" />
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" />
+                    <GridViewColumn Header="Phone Number" DisplayMemberBinding="{Binding PhoneNumber}" />
+                    <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+    </Viewbox>
+</Window>

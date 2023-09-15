@@ -10,19 +10,7 @@ namespace LabsUI
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is ComboBox comboBox && comboBox.SelectedItem != null)
-            {
-                if (comboBox.SelectedItem is ComboBoxItem selectedItem)
-                {
-                    // Update the SelectedPerson's Gender property
-                    // ViewModel.SelectedPerson.Gender = selectedItem.Content.ToString();
-                }
-            }
+            DataContext = new MainWindowViewModel();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

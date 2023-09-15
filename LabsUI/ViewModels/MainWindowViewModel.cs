@@ -1,17 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using LabsUI.Models;
+using System.Collections.Generic;
 //using Microsoft.Toolkit.Mvvm.ComponentModel;
 //using Microsoft.Toolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Shapes;
+using System.Xml;
 using System.Xml.Serialization;
 //using YourApp.Models;
 
 namespace LabsUI.ViewModels
 {
-    public class MainViewModel : ObservableObject
+    public class MainWindowViewModel : ObservableObject
     {
         public ObservableCollection<PersonModel> People { get; set; } = new ObservableCollection<PersonModel>();
 
@@ -25,10 +30,11 @@ namespace LabsUI.ViewModels
             set => SetProperty(ref selectedPerson, value);
         }
 
+        public IRelayCommand LoadCommand { get; }
         public IRelayCommand SaveCommand { get; }
         public IRelayCommand AddPersonCommand { get; }
 
-        public MainViewModel()
+        public MainWindowViewModel()
         {
             Application.Current.MainWindow.Left = LabsUI.Properties.Settings.Default.WinLeft;
             Application.Current.MainWindow.Top = LabsUI.Properties.Settings.Default.WinTop;
@@ -42,7 +48,10 @@ namespace LabsUI.ViewModels
             SelectedPerson = new PersonModel();
 
             AddPersonCommand = new RelayCommand(AddPerson);
+            LoadCommand = new RelayCommand(LoadData);
             SaveCommand = new RelayCommand(SaveData);
+
+            genders = new string[] { "Male", "Female" };
         }
 
         private void AddPerson()
@@ -62,6 +71,27 @@ namespace LabsUI.ViewModels
             SelectedPerson = new PersonModel();
         }
 
+        private void LoadData()
+        {
+            try
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(List<PersonModel>));
+
+                List<PersonModel> temp = new List<PersonModel>();
+
+                using (XmlReader reader = XmlReader.Create("people.xml"))
+                {
+                    temp = (List<PersonModel>)ser.Deserialize(reader);
+                }
+
+                People.Clear();
+                temp.ForEach(x => People.Add(x));
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, "An error occurred..");
+            }
+        }
         private void SaveData()
         {
             // Check if SelectedPerson is not null and has valid data.
@@ -78,5 +108,17 @@ namespace LabsUI.ViewModels
                 serializer.Serialize(writer, People);
             }
         }
+
+        private IEnumerable<string> genders;
+        public IEnumerable<string> Genders
+        {
+            get { return genders; }
+            set
+            {
+                genders = value;
+                //OnPropertyChanged("Currencies");
+            }
+        }
+
     }
 }
