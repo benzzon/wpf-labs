@@ -8,6 +8,7 @@
         Title="Labs with WPF" Height="350"
         Topmost="True"
         Closing="Window_Closing"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -50,9 +51,22 @@
         </ComboBox>
 
         <StackPanel Margin="8" Grid.Column="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Content="Add Person" Width="120" Height="40" Margin="0,0,10,0" Command="{Binding AddPersonCommand}" Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}" />
-                <Button Content="Load" Width="100" Height="40"  Margin="0,0,10,0" Command="{Binding LoadCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" />
-                <Button Content="Save" Width="100" Height="40" Command="{Binding SaveCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                <Button Width="130" Height="40" Margin="0,0,10,0" Command="{Binding AddPersonCommand}" Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}">
+                    <StackPanel Orientation="Horizontal"><materialDesign:PackIcon Kind="AccountPlus"/>
+                        <TextBlock Margin="6,0,0,0" Text="Add Person"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="100" Height="40"  Margin="0,0,10,0" Command="{Binding LoadCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}">
+                    <StackPanel Orientation="Horizontal"><materialDesign:PackIcon Kind="FolderDownload"/>
+                        <TextBlock Margin="6,0,0,0" Text="Load"/>
+                    </StackPanel>
+                </Button>
+                <Button Width="100" Height="40" Command="{Binding SaveCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FolderDownload"/>
+                        <TextBlock Margin="6,0,0,0" Text="Save"/>
+                    </StackPanel>
+                </Button>
         </StackPanel>
 
         <!-- ListView for displaying data -->
