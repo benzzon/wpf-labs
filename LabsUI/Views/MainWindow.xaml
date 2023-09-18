@@ -51,22 +51,28 @@
         </ComboBox>
 
         <StackPanel Margin="8" Grid.Column="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Width="130" Height="40" Margin="0,0,10,0" Command="{Binding DoAddCommand}" Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}">
+                <Button Width="130" Height="30" Margin="0,0,10,0" Command="{Binding DoAddCommand}" Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}">
                     <StackPanel Orientation="Horizontal"><materialDesign:PackIcon Kind="AccountPlus"/>
                         <TextBlock Margin="6,0,0,0" Text="Add Person"/>
                     </StackPanel>
                 </Button>
-                <Button Width="100" Height="40"  Margin="0,0,10,0" Command="{Binding DoLoadCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}">
+                <Button Width="90" Height="30"  Margin="0,0,10,0" Command="{Binding DoLoadCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}">
                     <StackPanel Orientation="Horizontal"><materialDesign:PackIcon Kind="FolderDownload"/>
                         <TextBlock Margin="6,0,0,0" Text="Load"/>
                     </StackPanel>
                 </Button>
-                <Button Width="100" Height="40" Command="{Binding DoSaveCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                <Button Width="90" Height="30" Command="{Binding DoSaveCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="FolderDownload"/>
                         <TextBlock Margin="6,0,0,0" Text="Save"/>
                     </StackPanel>
                 </Button>
+                <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
+                    <TextBox x:Name="searchText" HorizontalAlignment="Left" Width="60" Text=""/>
+                    <Button Margin="4,0,0,0" x:Name="searchButton" Content="Search" Width="76" Height="30" Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    Command="{Binding DoSearchCommand}" CommandParameter="{Binding ElementName=searchText,Path=Text}"></Button>
+
+                </StackPanel>
         </StackPanel>
 
         <!-- ListView for displaying data -->

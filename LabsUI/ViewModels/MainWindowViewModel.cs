@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using System.Xml;
@@ -109,6 +111,16 @@ namespace LabsUI.ViewModels
             {
                 serializer.Serialize(writer, People);
             }
+        }
+
+        [RelayCommand]
+        private void DoSearch(string textToSearch)
+        {
+            var coll = CollectionViewSource.GetDefaultView(People);
+            if (!string.IsNullOrWhiteSpace(textToSearch))
+                coll.Filter = c => ((PersonModel)c).PersonName.ToLower().Contains(textToSearch.ToLower());
+            else
+                coll.Filter = null;
         }
 
         private IEnumerable<string> genders;
