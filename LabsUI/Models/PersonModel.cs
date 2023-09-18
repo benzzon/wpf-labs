@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 
 namespace LabsUI.Models
 {
-    public class PersonModel
+    [ObservableObject]
+    public partial class PersonModel
     {
         public string PersonName { get; set; }
         public string Email { get; set; }

@@ -73,6 +73,13 @@ namespace LabsUI.ViewModels
         }
 
         [RelayCommand]
+        private void DoDelete()
+        {
+            People.Remove(SelectedPerson);
+            SelectedPerson = new PersonModel(); // Clear the input fields
+        }
+
+        [RelayCommand]
         private void DoLoad()
         {
             try
