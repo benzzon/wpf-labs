@@ -50,7 +50,7 @@
 
         <Label Grid.Row="4" Grid.Column="1" Content="Gender"></Label>
         <ComboBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Width="100"
-                  SelectedItem="{Binding SelectedPerson.Gender, Mode=TwoWay}" ItemsSource="{Binding Genders}" SelectedValuePath="Gender">
+                  SelectedItem="{Binding SelectedPerson.Gender, Mode=TwoWay}" ItemsSource="{Binding Genders}">
         </ComboBox>
 
         <StackPanel Margin="8" Grid.Column="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">

@@ -57,6 +57,11 @@ namespace LabsUI.ViewModels
         [RelayCommand]
         private void DoAdd()
         {
+            if (selectedPerson.PersonName == null) // Name is required..
+            {
+                return;
+            }
+
             // Create a new PersonModel and add it to the ObservableCollection
             var newPerson = new PersonModel
             {
