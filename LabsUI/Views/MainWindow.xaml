@@ -51,17 +51,17 @@
         </ComboBox>
 
         <StackPanel Margin="8" Grid.Column="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Width="130" Height="40" Margin="0,0,10,0" Command="{Binding AddPersonCommand}" Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}">
+                <Button Width="130" Height="40" Margin="0,0,10,0" Command="{Binding DoAddCommand}" Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}">
                     <StackPanel Orientation="Horizontal"><materialDesign:PackIcon Kind="AccountPlus"/>
                         <TextBlock Margin="6,0,0,0" Text="Add Person"/>
                     </StackPanel>
                 </Button>
-                <Button Width="100" Height="40"  Margin="0,0,10,0" Command="{Binding LoadCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}">
+                <Button Width="100" Height="40"  Margin="0,0,10,0" Command="{Binding DoLoadCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}">
                     <StackPanel Orientation="Horizontal"><materialDesign:PackIcon Kind="FolderDownload"/>
                         <TextBlock Margin="6,0,0,0" Text="Load"/>
                     </StackPanel>
                 </Button>
-                <Button Width="100" Height="40" Command="{Binding SaveCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                <Button Width="100" Height="40" Command="{Binding DoSaveCommand}" Style="{StaticResource MaterialDesignRaisedDarkButton}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="FolderDownload"/>
                         <TextBlock Margin="6,0,0,0" Text="Save"/>

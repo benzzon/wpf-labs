@@ -1,9 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel; //Previous name "Microsoft.Toolkit.Mvvm.ComponentModel"
+using CommunityToolkit.Mvvm.Input; // Previous name "Microsoft.Toolkit.Mvvm.Input"
 using LabsUI.Models;
 using System.Collections.Generic;
-//using Microsoft.Toolkit.Mvvm.ComponentModel;
-//using Microsoft.Toolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -16,7 +14,7 @@ using System.Xml.Serialization;
 
 namespace LabsUI.ViewModels
 {
-    public class MainWindowViewModel : ObservableObject
+    public partial class MainWindowViewModel : ObservableRecipient
     {
         public ObservableCollection<PersonModel> People { get; set; } = new ObservableCollection<PersonModel>();
 
@@ -30,9 +28,9 @@ namespace LabsUI.ViewModels
             set => SetProperty(ref selectedPerson, value);
         }
 
-        public IRelayCommand LoadCommand { get; }
-        public IRelayCommand SaveCommand { get; }
-        public IRelayCommand AddPersonCommand { get; }
+//        public IRelayCommand LoadCommand { get; }
+//        public IRelayCommand SaveCommand { get; }
+//        public IRelayCommand AddPersonCommand { get; }
 
         public MainWindowViewModel()
         {
@@ -47,14 +45,15 @@ namespace LabsUI.ViewModels
             // Initialize the SelectedPerson
             SelectedPerson = new PersonModel();
 
-            AddPersonCommand = new RelayCommand(AddPerson);
-            LoadCommand = new RelayCommand(LoadData);
-            SaveCommand = new RelayCommand(SaveData);
+//            AddPersonCommand = new RelayCommand(DoAdd);
+//            LoadCommand = new RelayCommand(DoLoad);
+//            SaveCommand = new RelayCommand(DoSave);
 
             genders = new string[] { "Male", "Female" };
         }
 
-        private void AddPerson()
+        [RelayCommand]
+        private void DoAdd()
         {
             // Create a new PersonModel and add it to the ObservableCollection
             var newPerson = new PersonModel
@@ -71,7 +70,8 @@ namespace LabsUI.ViewModels
             SelectedPerson = new PersonModel();
         }
 
-        private void LoadData()
+        [RelayCommand]
+        private void DoLoad()
         {
             try
             {
@@ -92,7 +92,9 @@ namespace LabsUI.ViewModels
                 MessageBox.Show(ex.Message, "An error occurred..");
             }
         }
-        private void SaveData()
+
+        [RelayCommand]
+        private void DoSave()
         {
             // Check if SelectedPerson is not null and has valid data.
             if (SelectedPerson != null && !string.IsNullOrEmpty(SelectedPerson.PersonName))
@@ -119,6 +121,5 @@ namespace LabsUI.ViewModels
                 //OnPropertyChanged("Currencies");
             }
         }
-
     }
 }
