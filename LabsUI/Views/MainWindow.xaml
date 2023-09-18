@@ -16,6 +16,9 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding DoCloseCommand}" Key="Esc" />
+    </Window.InputBindings>
     <Viewbox VerticalAlignment="Top">
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -69,7 +72,7 @@
                 </Button>
                 <StackPanel Margin="4,0,0,0" Orientation="Horizontal">
                     <TextBox x:Name="searchText" HorizontalAlignment="Left" Width="60" Text=""/>
-                    <Button Margin="4,0,0,0" x:Name="searchButton" Content="Search" Width="76" Height="30" Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    <Button Margin="4,0,0,0" x:Name="searchButton" Content="Search" Width="76" Height="30" IsDefault="True" Style="{StaticResource MaterialDesignRaisedDarkButton}"
                     Command="{Binding DoSearchCommand}" CommandParameter="{Binding ElementName=searchText,Path=Text}"></Button>
 
                 </StackPanel>

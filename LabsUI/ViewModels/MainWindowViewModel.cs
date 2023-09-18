@@ -123,6 +123,18 @@ namespace LabsUI.ViewModels
                 coll.Filter = null;
         }
 
+        [RelayCommand]
+        private void DoClose()
+        {
+            var result = MessageBox.Show("Close application?", "Close", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                var w = Application.Current.Windows[0];
+                w.Close();
+            }
+        }
+
         private IEnumerable<string> genders;
         public IEnumerable<string> Genders
         {
