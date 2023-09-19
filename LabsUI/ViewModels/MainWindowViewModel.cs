@@ -110,11 +110,9 @@ namespace LabsUI.ViewModels
         [RelayCommand]
         private void DoSave()
         {
-            // Check if SelectedPerson is not null and has valid data.
-            if (SelectedPerson != null && !string.IsNullOrEmpty(SelectedPerson.PersonName))
+            if (People == null) 
             {
-                People.Add(SelectedPerson);
-                SelectedPerson = new PersonModel(); // Clear the input fields
+                return; 
             }
 
             // Serialize and save the data to an XML file.

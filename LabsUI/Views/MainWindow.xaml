@@ -85,7 +85,7 @@
         </StackPanel>
 
         <!-- ListView for displaying data -->
-        <ListView Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="listView" ItemsSource="{Binding People}" HorizontalAlignment="Left" SelectedItem="{Binding SelectedPerson}">
+        <ListView SelectionMode="Single" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Name="listView" ItemsSource="{Binding People}" HorizontalAlignment="Left" SelectedItem="{Binding SelectedPerson}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Person Name" DisplayMemberBinding="{Binding PersonName}" />
