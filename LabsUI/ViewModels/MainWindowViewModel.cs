@@ -121,6 +121,8 @@ namespace LabsUI.ViewModels
             {
                 serializer.Serialize(writer, People);
             }
+
+            CollectionViewSource.GetDefaultView(People).Refresh(); // Force refresh of grid to show any changes to person-fields..
         }
 
         [RelayCommand]
