@@ -20,14 +20,14 @@ namespace LabsUI.ViewModels
     {
         public ObservableCollection<PersonModel> People { get; set; } = new ObservableCollection<PersonModel>();
 
-        private PersonModel selectedPerson;
         const double defaultWinHeight = 300;
         const double defaultWinWidth = 600;
 
+        private PersonModel _selectedP;
         public PersonModel SelectedPerson
         {
-            get => selectedPerson;
-            set => SetProperty(ref selectedPerson, value);
+            get => _selectedP;
+            set => SetProperty(ref _selectedP, value);
         }
 
 //        public IRelayCommand LoadCommand { get; }
@@ -45,7 +45,7 @@ namespace LabsUI.ViewModels
             People = new ObservableCollection<PersonModel>();
 
             // Initialize the SelectedPerson
-            SelectedPerson = new PersonModel();
+            //SelectedPerson = new PersonModel();
 
 //            AddPersonCommand = new RelayCommand(DoAdd);
 //            LoadCommand = new RelayCommand(DoLoad);
@@ -55,9 +55,14 @@ namespace LabsUI.ViewModels
         }
 
         [RelayCommand]
+        private void DoNew()
+        {
+            SelectedPerson = new PersonModel();
+        }
+        [RelayCommand]
         private void DoAdd()
         {
-            if (selectedPerson.PersonName == null) // Name is required..
+            if (_selectedP.PersonName == null) // Name is required..
             {
                 return;
             }
