@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel; //Previous name "Microsoft.Toolkit.Mvvm.ComponentModel"
 using CommunityToolkit.Mvvm.Input; // Previous name "Microsoft.Toolkit.Mvvm.Input"
 using LabsUI.Models;
+using Notifications.Wpf.Core;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -58,7 +59,21 @@ namespace LabsUI.ViewModels
         private void DoNew()
         {
             SelectedPerson = new PersonModel();
+            ShowNotification("New Person", "Enter person data, and then click the button 'Add'.", NotificationType.Information);
         }
+
+        private async void ShowNotification(string title, string message, NotificationType notifType)
+        {
+            NotificationManager notificationManager = new NotificationManager();
+
+            var notificationContent = new NotificationContent
+            {
+                Title = title, Message = message, Type = notifType
+            };
+
+            await notificationManager.ShowAsync(notificationContent, areaName: "WindowArea");
+        }
+
         [RelayCommand]
         private void DoAdd()
         {
@@ -80,6 +95,7 @@ namespace LabsUI.ViewModels
 
             // Clear the input fields
             SelectedPerson = new PersonModel();
+            ShowNotification("Added person", "Person was added to the list of persons..", NotificationType.Success);
         }
 
         [RelayCommand]
@@ -87,6 +103,7 @@ namespace LabsUI.ViewModels
         {
             People.Remove(SelectedPerson);
             SelectedPerson = new PersonModel(); // Clear the input fields
+            ShowNotification("Deleted person", "Person was removed from the list of persons..", NotificationType.Warning);
         }
 
         [RelayCommand]
@@ -110,6 +127,7 @@ namespace LabsUI.ViewModels
             {
                 MessageBox.Show(ex.Message, "An error occurred..");
             }
+            ShowNotification("Loaded persons", "Data was loaded to the list of persons..", NotificationType.Success);
         }
 
         [RelayCommand]
@@ -128,6 +146,7 @@ namespace LabsUI.ViewModels
             }
 
             CollectionViewSource.GetDefaultView(People).Refresh(); // Force refresh of grid to show any changes to person-fields..
+            ShowNotification("Saved persons", "Data for persons was saved..", NotificationType.Success);
         }
 
         [RelayCommand]
