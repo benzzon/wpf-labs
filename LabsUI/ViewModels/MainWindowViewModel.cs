@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel; //Previous name "Microsoft.Toolkit.Mvvm.ComponentModel"
 using CommunityToolkit.Mvvm.Input; // Previous name "Microsoft.Toolkit.Mvvm.Input"
+using LabsUI.Logging;
 using LabsUI.Models;
 using Notifications.Wpf.Core;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace LabsUI.ViewModels
 {
     public partial class MainWindowViewModel : ObservableRecipient
     {
+        private readonly INLogService _logger;
         public ObservableCollection<PersonModel> People { get; set; } = new ObservableCollection<PersonModel>();
 
         const double defaultWinHeight = 300;
@@ -35,8 +37,10 @@ namespace LabsUI.ViewModels
 //        public IRelayCommand SaveCommand { get; }
 //        public IRelayCommand AddPersonCommand { get; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(INLogService nLogService)
         {
+            _logger = nLogService;
+
             Application.Current.MainWindow.Left = LabsUI.Properties.Settings.Default.WinLeft;
             Application.Current.MainWindow.Top = LabsUI.Properties.Settings.Default.WinTop;
             Application.Current.MainWindow.Height = LabsUI.Properties.Settings.Default.WinHeight == 0 ? defaultWinHeight : LabsUI.Properties.Settings.Default.WinHeight;
@@ -82,6 +86,8 @@ namespace LabsUI.ViewModels
                 return;
             }
 
+            _logger.LogInfo("Started adding of person..");
+
             // Create a new PersonModel and add it to the ObservableCollection
             var newPerson = new PersonModel
             {
@@ -109,6 +115,8 @@ namespace LabsUI.ViewModels
         [RelayCommand]
         private void DoLoad()
         {
+            _logger.LogInfo("Loading XML-data..");
+
             try
             {
                 XmlSerializer ser = new XmlSerializer(typeof(List<PersonModel>));
@@ -137,6 +145,8 @@ namespace LabsUI.ViewModels
             {
                 return; 
             }
+
+            _logger.LogInfo("Started saving of persons..");
 
             // Serialize and save the data to an XML file.
             var serializer = new XmlSerializer(typeof(ObservableCollection<PersonModel>));

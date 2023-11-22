@@ -1,16 +1,21 @@
-﻿using LabsUI.ViewModels;
+﻿using LabsUI.Logging;
+using LabsUI.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
 //using YourApp.ViewModels;
 
 namespace LabsUI
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly INLogService _logger;
+        public MainWindow(INLogService nLogService)
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            _logger = nLogService;
+
+            DataContext = new MainWindowViewModel(nLogService);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
